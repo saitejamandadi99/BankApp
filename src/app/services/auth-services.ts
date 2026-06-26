@@ -23,7 +23,8 @@ export class AuthService {
         const payloadBase64 = loginResponse.token.split('.')[1];
         const decodePayload = JSON.parse(atob(payloadBase64)); //ascii to binary
 
-        localStorage.setItem('role', decodePayload['role']);
+        console.log(decodePayload);
+        localStorage.setItem('role', decodePayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
     }
     // get token 
     getToken(){
