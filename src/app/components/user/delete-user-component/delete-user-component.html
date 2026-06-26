@@ -1,0 +1,66 @@
+<div class="card shadow">
+    <div class="card-header">
+       Delete User
+    </div>
+
+    <div class="card-body">
+        <form [formGroup] = "userForm" (ngSubmit) = "deleteUser()">
+            <div class="form-group">
+                <input hidden name="userId" id="userId" formControlName ="userId" >
+            </div>
+
+            
+            <div class="form-control">
+                <label >User Name : </label>
+                <input type="text" name="userName" id="userName" formControlName="userName" class="form-control">
+                <div *ngIf="userForm.get('userName')?.invalid &&    (userForm.get('userName')?.touched || userForm.get('userName')?.dirty)">
+
+                    <div *ngIf="userForm.get('userName')?.hasError('required')" class="text-danger">
+                        Name is required
+                    </div>
+
+                    <div *ngIf="userForm.get('userName')?.hasError('minlength')" class="text-danger">
+                        Name should be minimum of 3 letters
+                    </div>
+
+                    <div *ngIf="userForm.get('userName')?.hasError('maxlength')" class="text-danger">
+                        Name should be maximum of 15 letters
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >Password : </label>
+                <input type="password" name="password" id="password" formControlName="password" class="form-control">
+                <div *ngIf="userForm.get('password')?.invalid && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
+
+                    <div *ngIf="userForm.get('password')?.hasError('required')" class="text-danger">
+                        password is required
+                    </div>
+
+                    <div *ngIf="userForm.get('password')?.hasError('pattern')" class="text-danger">
+                        password should have minimum of 3 and max of 10 characters with A-Z and a-z and 0-9
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="">Role Id</label>
+                <select name="roleId" id="roleId" formControlName="roleId" class="form-control">
+                    <option value="" disabled selected>Select Role</option>
+                    @for(role of (roles$ | async);track role.roleId;let i = $index){
+                        <option value="{{role.roleId}}">{{role.roleName}}</option>
+                    }
+                </select>
+
+                <div *ngIf="userForm.get('roleId')?.invalid &&    (userForm.get('roleId')?.touched || userForm.get('roleId')?.dirty)">
+                    <div *ngIf="userForm.get('roleId')?.hasError('required')" class="text-danger">
+                        RoleId is required
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled] = "userForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>

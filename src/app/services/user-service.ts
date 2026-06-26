@@ -16,6 +16,9 @@ export class UserService {
     }
 
     addUser(user:IUser):Observable<IUser>{
+        user.userId=0; 
+        console.log("user", user);
+        
         return this.http.post<IUser>(`${environment.apiUrl}/User`,user);
     }
 
@@ -26,6 +29,7 @@ export class UserService {
 
     
     editUser(id:number, user:IUser):Observable<IUser>{
+        user.userId=id;
         return this.http.put<IUser>(`${environment.apiUrl}/User/${id}`,user);
     }
 

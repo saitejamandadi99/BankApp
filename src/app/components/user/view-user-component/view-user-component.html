@@ -1,0 +1,33 @@
+
+<div class="text-center shadow">
+    <div class="text-start">
+        <button routerLink = '/adduser' class="btn btn-primary m-3">Add User</button>
+    </div>
+    <table class="table table-bordered table-striped m-2">
+        <thead>
+            <tr>
+                <th>UserId</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for(user of (lstUsers$ | async) ;track user.userId; let i = $index){
+                <tr>
+                    <td>{{user.userId}}</td>
+                    <td>{{user.userName}}</td>
+                    <td>{{user.role?.roleName}}</td>
+                    <td><button [routerLink]="['/edituser', user.userId]" class="btn btn-secondary me-2">Edit</button>  <button [routerLink] = "['/deleteuser', user.userId]" class="btn btn-danger">Delete</button></td>
+                </tr>
+            }
+
+            @if((lstUsers$ | async)?.length == 0){
+                <tr>
+                    <td class="text-center" colspan="4">No users Found</td>
+                </tr>
+            } 
+        </tbody>
+    </table>
+</div>

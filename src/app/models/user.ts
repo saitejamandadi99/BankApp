@@ -1,8 +1,12 @@
+import { ICustomer } from "./customer";
+import { IRole } from "./role";
 import { Roles } from "./Roles_enum";
 
 export interface IUser{
     userId: number,
-    username:string,
+    userName:string,
     password:string,
     roleId:number
+    role?:IRole,
+    customer?:ICustomer
 }
