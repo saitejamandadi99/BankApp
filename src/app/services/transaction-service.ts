@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITransaction } from '../models/transactions';
 import { environment } from '../../environments/environment';
+import { ITransactionPerform } from '../models/transactionDto';
 
 @Injectable({
     providedIn:'root'
@@ -18,7 +19,7 @@ export class TransactionService {
 
     //get transaction by transaction id 
 
-    getTransactionsById(id:number):Observable<ITransaction>{
+    getTransactionById(id:number):Observable<ITransaction>{
         return this.http.get<ITransaction>(`${environment.apiUrl}/Transaction/${id}`);
     } 
 
@@ -38,7 +39,7 @@ export class TransactionService {
 
     //perform transaction 
 
-    performTransaction(transaction:ITransaction):Observable<ITransaction>{
+    performTransaction(transaction:ITransactionPerform):Observable<ITransaction>{
         return this.http.post<ITransaction>(`${environment.apiUrl}/Transaction/perform`, transaction);
     }
 
