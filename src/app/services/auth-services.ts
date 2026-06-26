@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
     providedIn:'root'
 })
-export class AuthServices {
+export class AuthService {
     constructor(private http:HttpClient){}
 
     //login user 
@@ -35,6 +35,10 @@ export class AuthServices {
         
         let role = localStorage.getItem('role');
         return role;
+    }
+
+    isLoggedIn():boolean{
+        return localStorage.getItem('token') !== null;
     }
 
     
