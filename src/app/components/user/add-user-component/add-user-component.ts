@@ -54,7 +54,10 @@ export class AddUserComponent implements OnInit {
   addUser(){
     console.log('hitting add user method');
     
-    this.service.addUser(this.userForm.value as IUser).subscribe();
-    this.router.navigate(['viewusers']);
+    this.service.addUser(this.userForm.value as IUser).subscribe({
+      next: () => {
+        this.router.navigate(['/viewusers']);
+        }
+    });
   }
 }

@@ -23,6 +23,8 @@ export class CustomerService {
 
     //edit a customer 
     editCustomer(id:number, customer:ICustomer):Observable<ICustomer>{
+        console.log("hitting the customer to edit ", customer);
+        
         return this.http.put<ICustomer>(`${environment.apiUrl}/Customer/${id}`,customer );
     }
 

@@ -1,0 +1,77 @@
+<div class="card shadow">
+    <div class="card-header">
+       Add Customer
+    </div>
+
+    <div class="card-body">
+        <form [formGroup] = "customerForm" (ngSubmit) = "addCustomer()">
+            <div class="form-group">
+                <input hidden name="customerId" id="customerId" formControlName ="customerId" >
+            </div>
+
+            
+            <div class="form-control">
+                <label >Contact No : </label>
+                <input type="text" name="contactNo" id="contactNo" formControlName="contactNo" class="form-control">
+                <div *ngIf="customerForm.get('contactNo')?.invalid && (customerForm.get('contactNo')?.touched || customerForm.get('contactNo')?.dirty)">
+
+                    <div *ngIf="customerForm.get('contactNo')?.hasError('required')" class="text-danger">
+                        Contact no is Required is required
+                    </div>
+
+                    <div *ngIf="customerForm.get('contactNo')?.hasError('pattern')" class="text-danger">
+                        Contact No Should have 10 numbers with first number 6-9
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >Email Id : </label>
+                <input type="text" name="emailId" id="emailId" formControlName="emailId" class="form-control">
+                <div *ngIf="customerForm.get('emailId')?.invalid && (customerForm.get('emailId')?.touched || customerForm.get('emailId')?.dirty)">
+
+                    <div *ngIf="customerForm.get('emailId')?.hasError('required')" class="text-danger">
+                        Email Id is required
+                    </div>
+
+                    <div *ngIf="customerForm.get('emailId')?.hasError('email')" class="text-danger">
+                        email should match the pattern 
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >Date of Birth : </label>
+                <input type="date" name="dateOfBirth" id="dateOfBirth" formControlName="dateOfBirth" class="form-control">
+                <div *ngIf="customerForm.get('dateOfBirth')?.invalid && (customerForm.get('dateOfBirth')?.touched || customerForm.get('dateOfBirth')?.dirty)">
+
+                    <div *ngIf="customerForm.get('dateOfBirth')?.hasError('required')" class="text-danger">
+                        dateOfBirth Id is required
+                    </div>
+
+                    <div *ngIf="customerForm.get('dateOfBirth')?.hasError('minimumAge')" class="text-danger">
+                        age should be 18 or above 
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="">User Id</label>
+                <select name="userId" id="userId" formControlName="userId" class="form-control">
+                    <option value="" disabled selected>Select User</option>
+                    @for(user of (lstUsers$ | async);track user.userId;let i = $index){
+                        <option value="{{user.userId}}">{{user.userName}}</option>
+                    }
+                </select>
+
+                <div *ngIf="customerForm.get('userId')?.invalid &&    (customerForm.get('userId')?.touched || customerForm.get('userId')?.dirty)">
+                    <div *ngIf="customerForm.get('userId')?.hasError('required')" class="text-danger">
+                        userId is required
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled] = "customerForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>
