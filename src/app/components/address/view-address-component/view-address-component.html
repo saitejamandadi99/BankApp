@@ -1,0 +1,39 @@
+
+<div class="text-center shadow">
+    <div class="text-start">
+        <button routerLink = '/addaddress' class="btn btn-primary m-3">Add Address</button>
+    </div>
+    <table class="table table-bordered table-striped m-2">
+        <thead>
+            <tr>
+                <th>AddressId</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Pincode</th>
+                <th>Customer Id</th>
+                <th>User Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for(address of (lstAddress$ | async) ;track address.addressId; let i = $index){
+                <tr>
+                    <td>{{address.addressId}}</td>
+                    <td>{{address.city}}</td>
+                    <td>{{address.state}}</td>
+                    <td>{{address.pincode}}</td>
+                    <td>{{address.customerId}}</td>
+                    <td>{{address.customer?.user?.userName}}</td>
+                    <td><button [routerLink]="['/editaddress', address.addressId]" class="btn btn-secondary me-2">Edit</button>  <button [routerLink] = "['/deleteaddress', address.addressId]" class="btn btn-danger">Delete</button></td>
+                </tr>
+            }
+
+            @if((lstAddress$ | async)?.length == 0){
+                <tr>
+                    <td class="text-center" colspan="4">No Address Found</td>
+                </tr>
+            } 
+        </tbody>
+    </table>
+</div>

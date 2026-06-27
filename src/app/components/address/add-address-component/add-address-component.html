@@ -1,0 +1,72 @@
+<div class="card shadow">
+    <div class="card-header">
+       Add Address
+    </div>
+
+    <div class="card-body">
+        <form [formGroup] = "addressForm" (ngSubmit) = "addAddress()">
+            <div class="form-group">
+                <input hidden name="addressId" id="addressId" formControlName ="addressId" >
+            </div>
+
+            
+            <div class="form-control">
+                <label >City: </label>
+                <input type="text" name="city" id="city" formControlName="city" class="form-control">
+                <div *ngIf="addressForm.get('city')?.invalid && (addressForm.get('city')?.touched || addressForm.get('city')?.dirty)">
+
+                    <div *ngIf="addressForm.get('city')?.hasError('required')" class="text-danger">
+                        City  is Required is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >State: </label>
+                <input type="text" name="state" id="state" formControlName="state" class="form-control">
+                <div *ngIf="addressForm.get('state')?.invalid && (addressForm.get('state')?.touched || addressForm.get('state')?.dirty)">
+
+                    <div *ngIf="addressForm.get('state')?.hasError('required')" class="text-danger">
+                        state is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >PinCode: </label>
+                <input type="text" name="pincode" id="pincode" formControlName="pincode" class="form-control">
+                <div *ngIf="addressForm.get('pincode')?.invalid && (addressForm.get('pincode')?.touched || addressForm.get('pincode')?.dirty)">
+
+                    <div *ngIf="addressForm.get('pincode')?.hasError('required')" class="text-danger">
+                        pincode is required
+                    </div>
+
+                    <div *ngIf="addressForm.get('pincode')?.hasError('minlength')" class="text-danger">
+                        pincode is minimum 6 numbers
+                    </div>
+
+                    <div *ngIf="addressForm.get('pincode')?.hasError('maxlength')" class="text-danger">
+                        pincode is maximum  6 numbers
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="">Customer</label>
+                <select name="customerId" id="customerId" formControlName="customerId" class="form-control">
+                    <option value="" disabled selected>Select Customer</option>
+                    @for(customer of (lstCustomer$ | async);track customer.customerId;let i = $index){
+                        <option value="{{customer.customerId}}">{{customer.user?.userName}}</option>
+                    }
+                </select>
+
+                <div *ngIf="addressForm.get('customerId')?.invalid &&    (addressForm.get('customerId')?.touched || addressForm.get('customerId')?.dirty)">
+                    <div *ngIf="addressForm.get('customerId')?.hasError('required')" class="text-danger">
+                        Customer is required
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled] = "addressForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>
