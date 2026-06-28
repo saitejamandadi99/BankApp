@@ -1,0 +1,81 @@
+<div class="card shadow">
+    <div class="card-header">
+       Perform Transaction
+    </div>
+
+    <div class="card-body">
+        <form [formGroup] = "transactionForm" (ngSubmit) = "performTransaction()">
+
+            <div class="form-control">
+                <label >Source Account Id : </label>
+
+                <select type="text" name="srcAccountId" id="srcAccountId" formControlName="srcAccountId" class="form-control">
+                    <option value="" disabled>Select Account</option>
+                    @for(account of (lstAccounts$ | async); track account.accountId; let i = $index){
+                        <option value="{{account.accountId}}">{{account.accountNumber}} ({{account.accountType}}) - {{account.balance | currency:'INR'}}</option>
+                    }
+                </select>
+                <div *ngIf="transactionForm.get('srcAccountId')?.invalid && (transactionForm.get('srcAccountId')?.touched || transactionForm.get('srcAccountId')?.dirty)">
+
+                    <div *ngIf="transactionForm.get('srcAccountId')?.hasError('required')" class="text-danger">
+                        Account Type is required
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="form-control">
+                <label >Transaction Type: </label>
+                <select name="transType" id="transType" formControlName="transType" class="form-control">
+                    <option value="">Select Transaction Type</option>
+                     <option value="debit">Debit</option>
+                     <option value="credit">Credit</option>
+                     <option value="transfer">Transfer</option>
+                </select>
+                <div *ngIf="transactionForm.get('transType')?.invalid && (transactionForm.get('transType')?.touched || transactionForm.get('transType')?.dirty)">
+                    <div *ngIf="transactionForm.get('transType')?.hasError('required')" class="text-danger">
+                        Type is required
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <div class="form-control">
+                <label >amount: </label>
+                <input type="number" name="amount" id="amount" formControlName="amount" class="form-control">
+                <div *ngIf="transactionForm.get('amount')?.invalid && (transactionForm.get('amount')?.touched || transactionForm.get('amount')?.dirty)">
+
+                    <div *ngIf="transactionForm.get('amount')?.hasError('required')" class="text-danger">
+                        amount is required
+                    </div>
+
+                    <div *ngIf="transactionForm.get('amount')?.hasError('min')" class="text-danger">
+                        amount should be greater than 0
+                    </div>
+                </div>
+            </div>
+            @if(transType.value == 'transfer'){
+            <div class="form-control">
+                <label for="">Transfer to Account</label>
+                <input type="text" name="destAccountId" id="destAccountId" formControlName="destAccountId" class="form-control">
+                
+
+                <div *ngIf="transactionForm.get('destAccountId')?.invalid &&    (transactionForm.get('destAccountId')?.touched || transactionForm.get('destAccountId')?.dirty)">
+                    <div *ngIf="transactionForm.get('destAccountId')?.hasError('required')" class="text-danger">
+                        Account is required
+                    </div>
+                </div>
+            </div>
+            }
+            <button type="submit" class="btn btn-primary" [disabled] = "transactionForm.invalid || isProcessing">
+                @if(isProcessing){
+                  ⟳ Processing...
+                }
+                @else{
+                    Submit
+                }
+            </button>
+        </form>
+    </div>
+</div>

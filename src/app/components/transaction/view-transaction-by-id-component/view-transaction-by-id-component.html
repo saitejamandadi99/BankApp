@@ -1,0 +1,113 @@
+@if (transaction$ | async; as transaction) {
+
+<div class="card shadow">
+
+    <div class="card-header">
+        <h3 class="mb-0">Transaction Details</h3>
+    </div>
+
+    <div class="card-body">
+
+        <!-- Transaction Information -->
+
+        <h5 class="text-primary mb-3">Transaction Information</h5>
+
+        <div class="row mb-3">
+
+            <div class="col-md-4">
+                <strong>Transaction Id</strong><br>
+                {{transaction.transId}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Transaction Type</strong><br>
+                {{transaction.transType}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Amount</strong><br>
+                {{transaction.amount | currency:'INR'}}
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+
+            <div class="col-md-4">
+                <strong>Date</strong><br>
+                {{transaction.date | date:'dd/MM/yyyy'}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Account Id</strong><br>
+                {{transaction.accountId}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Customer Id</strong><br>
+                {{transaction.customerId}}
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Customer Information -->
+
+        @if(transaction.customer){
+
+        <h5 class="text-primary mb-3">Customer Information</h5>
+
+        <div class="row mb-4">
+
+            <div class="col-md-6">
+                <strong>Customer Name</strong><br>
+                {{transaction.customer.user?.userName}}
+            </div>
+
+            <div class="col-md-6">
+                <strong>Email Id</strong><br>
+                {{transaction.customer.emailId}}
+            </div>
+
+        </div>
+
+        }
+
+        <hr>
+
+        <!-- Account Information -->
+
+        @if(transaction.account){
+
+        <h5 class="text-primary mb-3">Account Information</h5>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <strong>Account Number</strong><br>
+                {{transaction.account.accountNumber}}
+            </div>
+
+            <div class="col-md-6">
+                <strong>Account Type</strong><br>
+                {{transaction.account.accountType}}
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+</div>
+
+}
+
+@else {
+
+<div class="alert alert-warning text-center">
+    Transaction not found.
+</div>
+
+}

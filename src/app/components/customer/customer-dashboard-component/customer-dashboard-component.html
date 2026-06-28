@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <h2 class="mb-4">
+        Welcome {{userName}}!! 
+    </h2>
+    <h4 class="mb-3">Your Accounts</h4>
+    <div class="row">
+        @for(account of lstAccounts$ | async; track account.accountId; let i = $index){
+            <div class="col-md-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{account.accountNumber}}</h5>
+                        <p class="mb-1"><strong>Type: </strong>{{account.accountType}}</p>
+                        <p class="mb-1"><strong>Balance: </strong>{{account.balance | currency : 'INR'}}</p>
+                        <button class="btn btn-info w-100" [routerLink] = "['/passbook', account.accountId]">View Passbook</button>
+                    </div>
+                </div>
+            </div>
+        }
+        @if((lstAccounts$ | async)?.length == 0){
+        <div class="alert alert-warning">
+            No accounts found.
+        </div>
+        }
+    </div>
+    <hr />
+    <h4 class="mb-3">Transactions</h4>
+    <button class="btn btn-primary m-2" [routerLink] = "['/viewtransactionbycustomerid', customerId]">View All Transactions</button> 
+    <button class="btn btn-primary" routerLink = "/performtransaction">Perform Transaction</button> 
+
+</div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IAccount } from '../models/accounts';
 import { environment } from '../../environments/environment';
+import { IPassbook } from '../models/passbook';
 
 @Injectable({
     providedIn:'root'
@@ -44,5 +45,11 @@ export class AccountService {
 
     deleteAccount(id:number):Observable<void>{
         return this.http.delete<void>(`${environment.apiUrl}/Account/${id}`)
+    }
+
+    //get the passbook details by id 
+
+    getPassbook(id:number):Observable<IPassbook>{
+        return this.http.get<IPassbook>(`${environment.apiUrl}/Account/passbook/${id}`)
     }
 }

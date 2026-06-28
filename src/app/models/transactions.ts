@@ -1,3 +1,5 @@
+import { IAccount } from "./accounts";
+import { ICustomer } from "./customer";
 import { TransactionType } from "./Tranasctions_enum";
 
 export interface ITransaction{
@@ -6,4 +8,8 @@ export interface ITransaction{
     amount:number, 
     date:Date,
     accountId:number, 
+    customerId:number, 
+    account?:IAccount,
+    customer?:ICustomer
+
 }

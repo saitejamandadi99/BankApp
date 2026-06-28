@@ -33,6 +33,11 @@ export class CustomerService {
         return this.http.get<ICustomer>(`${environment.apiUrl}/Customer/${id}` );
     }
 
+    //get customer by customer id 
+    getCustomerByUserId(id:number):Observable<ICustomer>{
+        return this.http.get<ICustomer>(`${environment.apiUrl}/Customer/User/${id}` );
+    }
+
     //delete customer by customer id
     deleteCustomer(id:number):Observable<void>{
         return this.http.delete<void>(`${environment.apiUrl}/Customer/${id}`);

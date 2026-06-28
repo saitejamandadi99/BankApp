@@ -1,0 +1,69 @@
+<div class="card shadow">
+    <div class="card-header">
+       Edit Account
+    </div>
+
+    <div class="card-body">
+        <form [formGroup] = "accountForm" (ngSubmit) = "editAccount()">
+            <div class="form-group">
+                <input hidden name="accountId" id="accountId" formControlName ="accountId" >
+            </div>
+
+            
+            <div class="form-control">
+                <label >Account Number: </label>
+                <input type="text" name="accountNumber" id="accountNumber" formControlName="accountNumber" class="form-control">
+                <div *ngIf="accountForm.get('accountNumber')?.invalid && (accountForm.get('accountNumber')?.touched || accountForm.get('accountNumber')?.dirty)">
+
+                    <div *ngIf="accountForm.get('accountNumber')?.hasError('required')" class="text-danger">
+                        Account Type is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label >Account Type: </label>
+                <select name="accountType" id="accountType" formControlName="accountType" class="form-control">
+                    <option value="">Select Account Type</option>
+                     <option value="Savings">Savings</option>
+                     <option value="Current">Current</option>
+                </select>
+                <div *ngIf="accountForm.get('accountType')?.invalid && (accountForm.get('accountType')?.touched || accountForm.get('accountType')?.dirty)">
+                    <div *ngIf="accountForm.get('accountType')?.hasError('required')" class="text-danger">
+                        Type is required
+                    </div>
+                </div>
+                
+                
+            </div>
+
+            <div class="form-control">
+                <label >Balance: </label>
+                <input type="number" name="balance" id="balance" formControlName="balance" class="form-control">
+                <div *ngIf="accountForm.get('balance')?.invalid && (accountForm.get('balance')?.touched || accountForm.get('balance')?.dirty)">
+
+                    <div *ngIf="accountForm.get('balance')?.hasError('required')" class="text-danger">
+                        balance is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="">Customer</label>
+                <select name="customerId" id="customerId" formControlName="customerId" class="form-control">
+                    <option value="" disabled selected>Select Customer</option>
+                    @for(customer of (lstCustomers$ | async);track customer.customerId;let i = $index){
+                        <option value="{{customer.customerId}}">{{customer.user?.userName}}</option>
+                    }
+                </select>
+
+                <div *ngIf="accountForm.get('customerId')?.invalid &&    (accountForm.get('customerId')?.touched || accountForm.get('customerId')?.dirty)">
+                    <div *ngIf="accountForm.get('customerId')?.hasError('required')" class="text-danger">
+                        Customer is required
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled] = "accountForm.invalid">Submit</button>
+        </form>
+    </div>
+</div>

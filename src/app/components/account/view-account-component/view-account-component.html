@@ -1,0 +1,39 @@
+
+<div class="text-center shadow">
+    <div class="text-start">
+        <button routerLink = '/addaccount' class="btn btn-primary m-3">Add Account</button>
+    </div>
+    <table class="table table-bordered table-striped m-2">
+        <thead>
+            <tr>
+                <th>AccountId</th>
+                <th>Account Number</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+                <th>Customer Id</th>
+                <th>User Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for(account of (lstAccounts$ | async) ;track account.accountId; let i = $index){
+                <tr>
+                    <td>{{account.accountId}}</td>
+                    <td>{{account.accountNumber}}</td>
+                    <td>{{account.accountType}}</td>
+                    <td>{{account.balance}}</td>
+                    <td>{{account.customerId}}</td>
+                    <td>{{account.customer?.user?.userName}}</td>
+                    <td><button [routerLink]="['/editaccount', account.accountId]" class="btn btn-secondary me-2">Edit</button> <button [routerLink]="['/passbook', account.accountId]" class="btn btn-secondary me-2">Passbook</button>  <button [routerLink] = "['/deleteaccount', account.accountId]" class="btn btn-danger">Delete</button></td>
+                </tr>
+            }
+
+            @if((lstAccounts$ | async)?.length == 0){
+                <tr>
+                    <td class="text-center" colspan="4">No Accounts Found</td>
+                </tr>
+            } 
+        </tbody>
+    </table>
+</div>

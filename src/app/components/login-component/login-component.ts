@@ -31,7 +31,13 @@ export class LoginComponent {
     this.loginResponse$.subscribe(data => {
     console.log("login data:", data);
     this.authService.saveToken(data);
-    this.router.navigate(['home']);
+    const role = this.authService.getRole();
+    if (role === 'Admin') {
+        this.router.navigate(['/userdashboard']);   // or your admin dashboard
+      }
+      else if (role === 'Customer') {
+        this.router.navigate(['/customerdashboard']);
+      }
     },
     err => {
       this.loginError = 'Username or password is invalid';

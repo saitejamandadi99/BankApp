@@ -1,11 +1,8 @@
 
 <h1>Welcome to the bank Api</h1>
 
-<a href="/loginform">Login Form</a>
-<a href="/viewusers">view Users</a>
+@if(authService.isLoggedIn()){
+  <app-navbar-component></app-navbar-component>
+}
 
-<br />
-<a href="/viewcustomers">View Customers</a>
-<br />
-<a href="/viewaddresses">View Address</a>
 <router-outlet />

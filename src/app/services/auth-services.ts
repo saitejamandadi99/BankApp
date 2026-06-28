@@ -25,11 +25,24 @@ export class AuthService {
 
         console.log(decodePayload);
         localStorage.setItem('role', decodePayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+        localStorage.setItem('userId', decodePayload['userId']);
+        localStorage.setItem("userName", decodePayload["userName"]);
+        
     }
     // get token 
     getToken(){
         let token = localStorage.getItem('token');
         return token;
+    }
+
+    
+    // get User id 
+    getUserId():number{
+        return Number(localStorage.getItem('userId'));
+    }
+
+    getUserName():string{
+        return String(localStorage.getItem('userName'));
     }
     //get role 
     getRole(){
@@ -46,6 +59,7 @@ export class AuthService {
     logout(){
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('userId');
     }
     
 }

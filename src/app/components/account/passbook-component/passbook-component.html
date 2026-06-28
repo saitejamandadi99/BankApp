@@ -1,0 +1,84 @@
+@if(passbook$ | async; as passbook){
+
+<div class="card shadow mb-3">
+
+    <div class="card-header">
+        <h4 class="mb-0">Passbook</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <strong>Account Id:</strong>
+                {{passbook.accountId}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Account Number:</strong>
+                {{passbook.accountNumber}}
+            </div>
+
+            <div class="col-md-4">
+                <strong>Current Balance:</strong>
+                {{passbook.currentBalance | currency:'INR'}}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow">
+
+    <div class="card-header">
+        <h5 class="mb-0">Transaction History</h5>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th>Transaction Id</th>
+                    <th>Transaction Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @for(transaction of passbook.transactions; track transaction.transactionId;let i = $index){
+
+                    <tr>
+                        <td>{{transaction.transactionId}}</td>
+                        <td>{{transaction.transactionType}}</td>
+                        <td>{{transaction.amount | currency:'INR'}}</td>
+                        <td>{{transaction.date | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+
+                }
+
+                @if(passbook.transactions.length == 0){
+
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            No Transactions Found
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+}
