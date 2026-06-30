@@ -52,6 +52,14 @@ For end-to-end (e2e) testing, run:
 ng e2e
 ```
 
+
+##Class Diagrams
+https://drive.google.com/file/d/15kaXgRBgrYKrcFh-7QHs0ocR2AVosNva/view?usp=sharing 
+
+https://drive.google.com/file/d/1YaCQsQ2ZqHTaRQTFkAwDdA1woTbN4nTq/view?usp=sharing
+#Flow Chart
+https://drive.google.com/file/d/1SqsVK4h5amCcvq5TfRHr5O2ttdyGr5in/view?usp=sharing
+
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
